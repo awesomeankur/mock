@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'cm-mock'
+    version =  '1.0.0'
+    mainClassName = 'com.ankur.Application'
+}
+
+group 'com.ankur'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+repositories {
+    maven {
+        url "https://artifactory.aws.athenahealth.com/consumer-engagement"
+    }
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+configurations.all {
+    exclude group:"org.springframework.cloud", module: "spring-cloud-aws-autoconfigure"
+}
