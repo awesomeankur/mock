@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
 
     public static void main(String[] args) {
-        log.info("Service Started !!");
+        log.info("Mock Service Started !!");
         SpringApplication.run(Application.class, args);
     }
 }
