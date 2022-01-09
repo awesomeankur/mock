@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 
 @RestController
@@ -25,14 +23,18 @@ public class MockController {
     ObjectMapper mapper;
 
     @GetMapping(path = {"/v1/student"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object getStudentData() throws InterruptedException, IOException {
+    public Object getStudentData( @RequestParam(name = "pageSize", required = false, defaultValue = "0") int pageSize,
+                                  @RequestParam(name = "pageNumber", required = false, defaultValue = "1") int pageNumber) throws InterruptedException, IOException {
         log.info("calling get Student");
+        if(pageNumber >=2 ){
+            return null;
+        }
         Thread.sleep(400);
         return getJsonResponse("getStudent");
     }
 
-    @PostMapping(path = {"/v1/student/id"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object postStudentData() throws InterruptedException, IOException {
+    @PostMapping(path = {"/v1/student/{id}"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object postStudentData(@PathVariable("id") String id) throws InterruptedException, IOException {
         log.info("calling post Student");
         Thread.sleep(400);
         return getJsonResponse("postStudent");
