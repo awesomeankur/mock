@@ -25,7 +25,7 @@ targetCompatibility = 1.11
 
 repositories {
     maven {
-        url "https://artifactory.aws.athenahealth.com/consumer-engagement"
+        url "https://repo.spring.io/release"
     }
     mavenCentral()
 }
